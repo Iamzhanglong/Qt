@@ -21,7 +21,6 @@ void TabComponent::componentDidLoad()
     this->view->addButton(button2);
 
     this->view->setStyleSheet("background-color:blue;");
-    this->view->setFixedHeight(30);
 }
 
 

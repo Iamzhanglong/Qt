@@ -9,6 +9,8 @@ LayoutManager::LayoutManager(QObject *parent) : QObject(parent)
 void LayoutManager::layoutBaseComponents(QMap<QString, BaseComponent *> *components)
 {
     QVBoxLayout *layout = new QVBoxLayout();
+    layout->setSpacing(2);
+    layout->setContentsMargins(5, 10, 5, 10);
 
     if (components->contains(TAB_COMPONENT))
     {
@@ -17,7 +19,7 @@ void LayoutManager::layoutBaseComponents(QMap<QString, BaseComponent *> *compone
         if (widget)
         {
             widget->setParent(this->mainWindow);
-            layout->addWidget(widget, 1, Qt::AlignTop);
+            layout->addWidget(widget, 1);
         }
     }
 
