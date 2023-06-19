@@ -7,6 +7,7 @@
 
 #include "BaseComponent/BaseComponent/basecomponent.h"
 #include "LayoutManager/layoutmanager.h"
+#include "Service/servicemanager.h"
 
 class ComponentLoader : public QObject
 {
@@ -21,6 +22,7 @@ private:
 private:
     QMap<QString, BaseComponent *> *baseComponents;
     QVector<BaseComponent *> *bizComponents;
+    ServiceManager *serviceManager;
 
     void createBaseComponents();
     void createBizComponents();

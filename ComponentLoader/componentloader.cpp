@@ -6,6 +6,8 @@
 
 ComponentLoader::ComponentLoader(QObject *parent) : QObject(parent)
 {
+    this->serviceManager = new ServiceManager();
+
     createBaseComponents();
     createBizComponents();
 }
@@ -38,6 +40,17 @@ void ComponentLoader::loadComponents()
 void ComponentLoader::loadBaseComponents()
 {
     QMap<QString, BaseComponent *>::iterator iter;
+
+    for (iter = this->baseComponents->begin(); iter != this->baseComponents->end(); iter++)
+    {
+        (*iter)->registerService(this->serviceManager);
+    }
+
+    for (iter = this->baseComponents->begin(); iter != this->baseComponents->end(); iter++)
+    {
+        (*iter)->injectService(this->serviceManager);
+    }
+
     for (iter = this->baseComponents->begin(); iter != this->baseComponents->end(); iter++)
     {
         (*iter)->componentDidLoad();

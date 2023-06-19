@@ -5,11 +5,21 @@ TabComponent::TabComponent()
 
 }
 
+void TabComponent::registerService(ServiceManager *serviceManager)
+{
+    qDebug("register service\n");
+    serviceManager->registerService(tabServiceId, this);
+}
+
+void TabComponent::injectService(ServiceManager *serviceManager)
+{
+    qDebug("inject service\n");
+}
+
 void TabComponent::componentDidLoad()
 {
     BaseComponent::componentDidLoad();
     qDebug("TabComponent Did Load\n");
-
     this->view = new TabView();
 
     QPushButton *button1 = new QPushButton("1", NULL);
@@ -27,4 +37,10 @@ void TabComponent::componentDidLoad()
 QWidget *TabComponent::componentWidget()
 {
     return this->view;
+}
+
+/*==========================TabService==========================*/
+void TabComponent::insertTab(QString title)
+{
+    qDebug("insert Tab\n");
 }
