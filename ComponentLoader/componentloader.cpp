@@ -3,7 +3,7 @@
 #include "BaseComponent/TabComponent/tabcomponent.h"
 #include "BaseComponent/OperationWindowComponent/operationwindowcomponent.h"
 #include "BaseComponent/LogComponent/logcomponent.h"
-#include "BizComponent/stcomponent.h"
+#include "BizComponent/STComponent/stcomponent.h"
 
 ComponentLoader::ComponentLoader(QObject *parent) : QObject(parent)
 {

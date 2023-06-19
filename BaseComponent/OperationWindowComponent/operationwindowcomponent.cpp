@@ -1,8 +1,13 @@
 #include "operationwindowcomponent.h"
+#include <QVBoxLayout>
 
 OperationWindowComponent::OperationWindowComponent()
 {
+    this->view = new OperationView();
 
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->setContentsMargins(0, 0, 0, 0);
+    this->view->setLayout(layout);
 }
 
 void OperationWindowComponent::registerService(ServiceManager *serviceManager)
@@ -19,8 +24,6 @@ void OperationWindowComponent::componentDidLoad()
 {
     BaseComponent::componentDidLoad();
     qDebug("OperationWindowComponent Did Load\n");
-    this->view = new OperationView();
-    this->view->setStyleSheet("background-color:green;");
 }
 
 
@@ -31,6 +34,9 @@ QWidget *OperationWindowComponent::componentWidget()
 
 void OperationWindowComponent::setCurrentView(QWidget *widget)
 {
+    QVBoxLayout *layout = (QVBoxLayout *)this->view->layout();
+    layout->removeWidget(this->currentView);
+    layout->addWidget(widget);
     this->currentView = widget;
 }
 

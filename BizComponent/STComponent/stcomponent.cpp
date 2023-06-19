@@ -2,7 +2,7 @@
 
 STComponent::STComponent()
 {
-
+    this->view = new STView();
 }
 
 void STComponent::injectService(ServiceManager *serviceManager)
@@ -12,6 +12,5 @@ void STComponent::injectService(ServiceManager *serviceManager)
 
 void STComponent::componentDidLoad()
 {
-    QWidget *widget = new QWidget();
-    this->tabService->insertTab(stTabId, "ST", widget);
+    this->tabService->insertTab(stTabId, "ST", this->view);
 }
