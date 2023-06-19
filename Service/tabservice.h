@@ -3,13 +3,16 @@
 
 #include "baseservice.h"
 #include <QString>
+#include <QWidget>
 
 #define tabServiceId "tabServiceId"
+
+#define stTabId "stTabId"
 
 class TabService : public BaseService
 {
 public:
-    virtual void insertTab(QString title) = 0;
+    virtual void insertTab(QString tabId, QString tabTitle, QWidget *widget) = 0;
 };
 
 #endif // TABSERVICE_H

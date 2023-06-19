@@ -23,15 +23,14 @@ void TabView::paintEvent(QPaintEvent *event)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 
-void TabView::addButton(QPushButton *button)
+void TabView::addTab(QString tabId, QString btnTitle)
 {
-    if (button == NULL)
-    {
-        return;
-    }
+    QPushButton *button = new QPushButton();
+    button->setText(btnTitle);
 
     QObject::connect(button, &QPushButton::clicked, [=]() {
             qDebug("Button was %s", qPrintable(button->text()));
+            emit buttonDidCliked(tabId);
         });
 
     QHBoxLayout *hLayout = (QHBoxLayout *)this->layout();

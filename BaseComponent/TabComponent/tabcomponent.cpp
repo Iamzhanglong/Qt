@@ -1,8 +1,11 @@
 #include "tabcomponent.h"
 
+
 TabComponent::TabComponent()
 {
-
+    this->tabMap = new QMap<QString, QWidget *>();
+    this->view = new TabView();
+    this->view->setStyleSheet("background-color:blue;");
 }
 
 void TabComponent::registerService(ServiceManager *serviceManager)
@@ -13,26 +16,22 @@ void TabComponent::registerService(ServiceManager *serviceManager)
 
 void TabComponent::injectService(ServiceManager *serviceManager)
 {
-    qDebug("inject service\n");
+    this->operationService = (OperationWindowService *)serviceManager->getService(operationWindowServiceId);
 }
 
 void TabComponent::componentDidLoad()
 {
     BaseComponent::componentDidLoad();
     qDebug("TabComponent Did Load\n");
-    this->view = new TabView();
 
-    QPushButton *button1 = new QPushButton("1", NULL);
-    button1->setStyleSheet("background-color:black;");
-    this->view->addButton(button1);
-    QPushButton *button2 = new QPushButton("2999999999999999999", NULL);
-    button2->setStyleSheet("background-color:black;");
-
-    this->view->addButton(button2);
-
-    this->view->setStyleSheet("background-color:blue;");
+    connect(this->view, SIGNAL(buttonDidCliked(QString)), this, SLOT(switchOperationWindow(QString)));
 }
 
+void TabComponent::switchOperationWindow(QString tabId)
+{
+    QWidget *widget = this->tabMap->value(tabId);
+    this->operationService->switchOperationWindow(widget);
+}
 
 QWidget *TabComponent::componentWidget()
 {
@@ -40,7 +39,9 @@ QWidget *TabComponent::componentWidget()
 }
 
 /*==========================TabService==========================*/
-void TabComponent::insertTab(QString title)
+void TabComponent::insertTab(QString tabId, QString tabTitle, QWidget *widget)
 {
+    this->view->addTab(tabId, tabTitle);
+    this->tabMap->insert(tabId, widget);
     qDebug("insert Tab\n");
 }

@@ -3,6 +3,7 @@
 #include "BaseComponent/TabComponent/tabcomponent.h"
 #include "BaseComponent/OperationWindowComponent/operationwindowcomponent.h"
 #include "BaseComponent/LogComponent/logcomponent.h"
+#include "BizComponent/stcomponent.h"
 
 ComponentLoader::ComponentLoader(QObject *parent) : QObject(parent)
 {
@@ -29,6 +30,9 @@ void ComponentLoader::createBaseComponents()
 void ComponentLoader::createBizComponents()
 {
     this->bizComponents = new QVector<BaseComponent *>();
+
+    STComponent *st = new STComponent();
+    bizComponents->append(st);
 }
 
 void ComponentLoader::loadComponents()
@@ -62,6 +66,17 @@ void ComponentLoader::loadBaseComponents()
 void ComponentLoader::loadBizComponents()
 {
     QVector<BaseComponent *>::iterator iter;
+
+    for (iter = this->bizComponents->begin(); iter != this->bizComponents->end(); iter++)
+    {
+        (*iter)->registerService(this->serviceManager);
+    }
+
+    for (iter = this->bizComponents->begin(); iter != this->bizComponents->end(); iter++)
+    {
+        (*iter)->injectService(this->serviceManager);
+    }
+
     for (iter = this->bizComponents->begin(); iter != this->bizComponents->end(); iter++)
     {
         (*iter)->componentDidLoad();
