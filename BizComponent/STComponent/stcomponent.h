@@ -4,6 +4,7 @@
 #include "BaseComponent/BaseComponent/basecomponent.h"
 #include "Service/tabservice.h"
 #include "BizComponent/STComponent/Views/stview.h"
+#include "BizComponent/STComponent/stmodel.h"
 
 class STComponent : public BaseComponent
 {
@@ -15,6 +16,9 @@ private:
 
     TabService *tabService;
     STView *view;
+    STModel *stModel;
+
+    void bind();
 };
 
 #endif // STCOMPONENT_H

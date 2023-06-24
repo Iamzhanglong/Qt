@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-class STError : public QObject {
+class ST : public QObject {
     Q_OBJECT   //必须有
 public:
     enum STErrorId
@@ -13,7 +13,22 @@ public:
         STError_AirLeak = 3
     };
 
+    enum STState
+    {
+        STState_normal = 1,
+        STState_error = 2
+    };
+
+    enum STCommand
+    {
+        STCommand_setRed,
+        STCommand_setBlue,
+        STCommand_setYellow
+    };
+
     Q_ENUM(STErrorId)
+    Q_ENUM(STState)
+    Q_ENUM(STCommand)
 };
 
 

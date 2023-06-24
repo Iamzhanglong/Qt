@@ -2,6 +2,7 @@
 #define STSIGNALTOWERVIEW_H
 
 #include <QWidget>
+#include "BizComponent/STComponent/stcomponentconst.h"
 
 class STSignalTowerView : public QWidget
 {
@@ -15,6 +16,7 @@ private:
 signals:
 
 public slots:
+    void handleCommand(ST::STCommand command, qint16 value);
 };
 
 #endif // STSIGNALTOWERVIEW_H

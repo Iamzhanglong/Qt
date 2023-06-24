@@ -3,7 +3,6 @@
 #include <QHBoxLayout>
 #include <QVector>
 #include <QVariant>
-#include "BizComponent/STComponent/stcomponentconst.h"
 
 #define VERTICAL_SPACING      20
 #define HORIZONTAL_SPACING    100
@@ -15,18 +14,18 @@ STSettingView::STSettingView(QWidget *parent) : QWidget(parent)
 
     this->waterLeakCheck = new QCheckBox();
     this->waterLeakCheck->setText("WaterLeak");
-    //QVariant var = QVariant::fromValue(STError::STError_WarterLeak);
-    this->waterLeakCheck->setProperty("id", STError::STError_WarterLeak);
+    //QVariant var = QVariant::fromValue(ST::STError_WarterLeak);
+    this->waterLeakCheck->setProperty("id", ST::STError_WarterLeak);
     checkBoxs->append(this->waterLeakCheck);
 
     this->airLeakCheck = new QCheckBox();
     this->airLeakCheck->setText("AirLeak");
-    this->airLeakCheck->setProperty("id", STError::STError_AirLeak);
+    this->airLeakCheck->setProperty("id", ST::STError_AirLeak);
     checkBoxs->append(this->airLeakCheck);
 
     this->overrideLeakCheck = new QCheckBox();
     this->overrideLeakCheck->setText("OverRide");
-    this->overrideLeakCheck->setProperty("id", STError::STError_Override);
+    this->overrideLeakCheck->setProperty("id", ST::STError_Override);
     checkBoxs->append(this->overrideLeakCheck);
 
 
@@ -69,5 +68,18 @@ void STSettingView::onCheckBoxStateChanged(int state)
         return;
     }
     QCheckBox *checkBox = qobject_cast<QCheckBox *>(object);
-    qDebug("%d\n", checkBox->property("id").value<STError::STErrorId>());
+
+    ST::STState errorState;
+    switch (state)
+    {
+    case Qt::Checked:
+        errorState = ST::STState_error;
+        break;
+    case Qt::Unchecked:
+        errorState = ST::STState_normal;
+        break;
+    default:
+        break;
+    }
+    emit errorStateChanged(checkBox->property("id").value<ST::STErrorId>(), errorState);
 }

@@ -19,9 +19,15 @@ private:
     QLabel *serverportName;
     QLineEdit *serverport;
 
+    QString getLocalIp();
+    void bind();
+
 signals:
+    void startServer(quint16 port);
+    void stopServer();
 
 public slots:
+    void startButtonClicked();
 };
 
 #endif // STMENUVIEW_H

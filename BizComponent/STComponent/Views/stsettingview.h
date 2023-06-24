@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QCheckBox>
 #include <QObject>
+#include "BizComponent/STComponent/stcomponentconst.h"
 
 class STSettingView : public QWidget
 {
@@ -18,7 +19,7 @@ private:
 
     void connectAction();
 signals:
-
+    void errorStateChanged(ST::STErrorId errorId, ST::STState state);
 public slots:
     void onCheckBoxStateChanged(int state);
 };

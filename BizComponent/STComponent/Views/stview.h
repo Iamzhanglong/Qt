@@ -12,12 +12,12 @@ class STView : public QWidget
 public:
     explicit STView(QWidget *parent = nullptr);
 
-private:
-    void paintEvent(QPaintEvent *event);
-
     STMenuView *menuView;
     STSettingView *settingView;
     STSignalTowerView *signaltowerView;
+private:
+    void paintEvent(QPaintEvent *event);
+
 signals:
 
 public slots:

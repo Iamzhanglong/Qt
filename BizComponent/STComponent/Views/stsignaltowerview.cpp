@@ -23,3 +23,10 @@ STSignalTowerView::STSignalTowerView(QWidget *parent) : QWidget(parent)
     layout->addWidget(this->blueLamp);
     this->setLayout(layout);
 }
+
+
+/*=========================Slots=========================*/
+void STSignalTowerView::handleCommand(ST::STCommand command, qint16 value)
+{
+    qDebug("receive data\n");
+}

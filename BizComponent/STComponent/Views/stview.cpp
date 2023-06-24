@@ -18,7 +18,7 @@ STView::STView(QWidget *parent) : QWidget(parent)
     this->signaltowerView->setParent(this);
 
     QHBoxLayout *layout = new QHBoxLayout();
-    layout->addWidget(this->menuView, 2);
+    layout->addWidget(this->menuView, 3);
     layout->addWidget(this->settingView, 6);
     layout->addWidget(this->signaltowerView, 1);
 
