@@ -23,5 +23,5 @@ void STComponent::bind()
     connect(this->view->settingView, SIGNAL(errorStateChanged(ST::STErrorId,ST::STState)), this->stModel, SLOT(updateErrorState(ST::STErrorId , ST::STState )));
     connect(this->view->menuView, SIGNAL(startServer(quint16)), this->stModel, SLOT(startServer(quint16)));
     connect(this->view->menuView, SIGNAL(stopServer()), this->stModel, SLOT(stopServer()));
-    connect(this->stModel, SIGNAL(receiveCommand(ST::STCommand,qint16)), this->view->signaltowerView, SLOT(handleCommand(ST::STCommand,qint16)));
+    connect(this->stModel, SIGNAL(receiveCommand(ST::STCommand,ST::STSignalTowerStatus)), this->view->signaltowerView, SLOT(handleCommand(ST::STCommand,ST::STSignalTowerStatus)));
 }

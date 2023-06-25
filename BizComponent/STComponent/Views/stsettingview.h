@@ -14,10 +14,10 @@ public:
     explicit STSettingView(QWidget *parent = nullptr);
 private:
     QCheckBox *waterLeakCheck;
-    QCheckBox *airLeakCheck;
-    QCheckBox *overrideLeakCheck;
+    QCheckBox *smokeCheck;
+    QCheckBox *emoCheck;
 
-    void connectAction();
+    void bind();
 signals:
     void errorStateChanged(ST::STErrorId errorId, ST::STState state);
 public slots:

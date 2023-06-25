@@ -16,7 +16,7 @@ private:
 signals:
 
 public slots:
-    void handleCommand(ST::STCommand command, qint16 value);
+    void handleCommand(ST::STCommand command, ST::STSignalTowerStatus status);
 };
 
 #endif // STSIGNALTOWERVIEW_H

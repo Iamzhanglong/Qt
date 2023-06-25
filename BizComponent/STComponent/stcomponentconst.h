@@ -8,9 +8,12 @@ class ST : public QObject {
 public:
     enum STErrorId
     {
-        STError_Override = 1,
-        STError_WarterLeak = 2,
-        STError_AirLeak = 3
+        STError_Emo = 1,
+        STError_InterLock,
+        STError_WaterLeak,
+        STError_Smoke,
+        STError_Fan,
+        STError_Temp
     };
 
     enum STState
@@ -21,14 +24,26 @@ public:
 
     enum STCommand
     {
+        STCommand_clear = 1,
         STCommand_setRed,
+        STCommand_setYellow,
+        STCommand_setGreen,
         STCommand_setBlue,
-        STCommand_setYellow
+        STCommand_setBuzzer,
+        STCommand_setMusic
+    };
+
+    enum STSignalTowerStatus
+    {
+        STStatus_on = 1,
+        STStatus_off,
+        STStatus_blink,
     };
 
     Q_ENUM(STErrorId)
     Q_ENUM(STState)
     Q_ENUM(STCommand)
+    Q_ENUM(STSignalTowerStatus)
 };
 
 

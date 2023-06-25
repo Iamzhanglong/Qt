@@ -19,9 +19,12 @@ private:
     QTcpServer* server;
     QTcpSocket* socket;
 
-    ST::STCommand parseCommand(QByteArray &buf, ST::STCommand *command, qint16 *value);
-    void distributeCommand(ST::STCommand command, qint16 value);
-
+    void paseQueryCommand(QByteArray &buf);
+    void paseSetCommand(QByteArray &buf);
+    void parseCommand(QByteArray &buf);
+    void distributeCommand(ST::STCommand command, ST::STSignalTowerStatus statuse);
+    void sendData(char *data, qint32 len);
+    void sendFirstLevelErrorState();
 public slots:
     void ClientConnect();
     void receiveData();
@@ -29,7 +32,7 @@ public slots:
     void startServer(quint16 port);
     void stopServer();
 signals:
-    void receiveCommand(ST::STCommand command, qint16 value);
+    void receiveCommand(ST::STCommand command, ST::STSignalTowerStatus statuse);
 };
 
 #endif // STMODEL_H

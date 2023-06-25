@@ -26,7 +26,7 @@ STSignalTowerView::STSignalTowerView(QWidget *parent) : QWidget(parent)
 
 
 /*=========================Slots=========================*/
-void STSignalTowerView::handleCommand(ST::STCommand command, qint16 value)
+void STSignalTowerView::handleCommand(ST::STCommand command, ST::STSignalTowerStatus status)
 {
-    qDebug("receive data\n");
+    qDebug("command = %d, status = %d\n", command, status);
 }

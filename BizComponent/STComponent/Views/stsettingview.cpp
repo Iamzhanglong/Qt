@@ -14,19 +14,18 @@ STSettingView::STSettingView(QWidget *parent) : QWidget(parent)
 
     this->waterLeakCheck = new QCheckBox();
     this->waterLeakCheck->setText("WaterLeak");
-    //QVariant var = QVariant::fromValue(ST::STError_WarterLeak);
-    this->waterLeakCheck->setProperty("id", ST::STError_WarterLeak);
+    this->waterLeakCheck->setProperty("id", ST::STError_WaterLeak);
     checkBoxs->append(this->waterLeakCheck);
 
-    this->airLeakCheck = new QCheckBox();
-    this->airLeakCheck->setText("AirLeak");
-    this->airLeakCheck->setProperty("id", ST::STError_AirLeak);
-    checkBoxs->append(this->airLeakCheck);
+    this->smokeCheck = new QCheckBox();
+    this->smokeCheck->setText("AirLeak");
+    this->smokeCheck->setProperty("id", ST::STError_Smoke);
+    checkBoxs->append(this->smokeCheck);
 
-    this->overrideLeakCheck = new QCheckBox();
-    this->overrideLeakCheck->setText("OverRide");
-    this->overrideLeakCheck->setProperty("id", ST::STError_Override);
-    checkBoxs->append(this->overrideLeakCheck);
+    this->emoCheck = new QCheckBox();
+    this->emoCheck->setText("Emo");
+    this->emoCheck->setProperty("id", ST::STError_Emo);
+    checkBoxs->append(this->emoCheck);
 
 
     QGridLayout *layout = new QGridLayout();
@@ -50,14 +49,14 @@ STSettingView::STSettingView(QWidget *parent) : QWidget(parent)
 
     delete checkBoxs;
 
-    connectAction();
+    this->bind();
 }
 
-void STSettingView::connectAction()
+void STSettingView::bind()
 {
     connect(this->waterLeakCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
-    connect(this->airLeakCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
-    connect(this->overrideLeakCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
+    connect(this->smokeCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
+    connect(this->emoCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
 }
 
 void STSettingView::onCheckBoxStateChanged(int state)
