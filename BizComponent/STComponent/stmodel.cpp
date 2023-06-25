@@ -1,7 +1,5 @@
 #include "stmodel.h"
 
-#define SERVER_IP
-#define SERVER_PORT 7
 
 STModel::STModel(QObject *parent) : QObject(parent)
 {
@@ -23,7 +21,7 @@ void STModel::startServer(quint16 port)
 {
     this->server = new QTcpServer(this);
    //客户机连接信号槽
-    connect(this->server, &QTcpServer::newConnection, this, &ClientConnect);
+    connect(this->server, SIGNAL(QTcpServer::newConnection), this, SLOT(ClientConnect));
     this->server->listen(QHostAddress::Any, port);
     qDebug("start server\n");
 }
@@ -35,7 +33,6 @@ void STModel::stopServer()
     qDebug("stop server\n");
 }
 
-/*=====================Private=====================*/
 void STModel::ClientConnect()
 {
     //解析所有客户连接
@@ -44,7 +41,7 @@ void STModel::ClientConnect()
         //连接上后通过socket获取连接信息
         this->socket = this->server->nextPendingConnection();
         //监听客户端是否有消息发送
-        connect(this->socket, &QTcpSocket::readyRead, this, &receiveData);
+        connect(this->socket, SIGNAL(QTcpSocket::readyRead), this, SLOT(receiveData));
     }
 }
 

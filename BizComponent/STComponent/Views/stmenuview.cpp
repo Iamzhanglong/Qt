@@ -2,9 +2,11 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QNetworkInterface>
+#include <QIntValidator>
 
 #define START_SERVER    "开始"
 #define STOP_SERVER     "停止"
+#define DEFAULT_PORT    "7"
 
 STMenuView::STMenuView(QWidget *parent) : QWidget(parent)
 {
@@ -25,7 +27,8 @@ STMenuView::STMenuView(QWidget *parent) : QWidget(parent)
     portLayout->addWidget(this->serverportName);
 
     this->serverport = new QLineEdit();
-    this->serverport->setText("7");
+    this->serverport->setValidator(new QIntValidator());
+    this->serverport->setText(DEFAULT_PORT);
     portLayout->addWidget(this->serverport);
 
     this->startButton = new QPushButton();
@@ -69,6 +72,10 @@ void STMenuView::startButtonClicked()
 {
     if (this->startButton->text() == START_SERVER)
     {
+        if (this->serverport->text() == "")
+        {
+            this->serverport->setText(DEFAULT_PORT);
+        }
         emit startServer(this->serverport->text().toInt());
         this->startButton->setText(STOP_SERVER);
         this->serverport->setEnabled(false);

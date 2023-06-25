@@ -19,12 +19,12 @@ private:
     QTcpServer* server;
     QTcpSocket* socket;
 
-    void ClientConnect();
-    void receiveData();
     ST::STCommand parseCommand(QByteArray &buf, ST::STCommand *command, qint16 *value);
     void distributeCommand(ST::STCommand command, qint16 value);
 
 public slots:
+    void ClientConnect();
+    void receiveData();
     void updateErrorState(ST::STErrorId stErrorId, ST::STState state);
     void startServer(quint16 port);
     void stopServer();
