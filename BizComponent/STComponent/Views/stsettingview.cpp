@@ -5,27 +5,142 @@
 #include <QVariant>
 
 #define VERTICAL_SPACING      20
-#define HORIZONTAL_SPACING    100
-#define COLUMN                 2
+#define HORIZONTAL_SPACING    50
+#define ROW                   10
 
 STSettingView::STSettingView(QWidget *parent) : QWidget(parent)
 {
-    QVector<QCheckBox *> *checkBoxs = new QVector<QCheckBox *>();
+    this->checkBoxs = new QVector<QCheckBox *>();
 
-    this->waterLeakCheck = new QCheckBox();
-    this->waterLeakCheck->setText("WaterLeak");
-    this->waterLeakCheck->setProperty("id", ST::STError_WaterLeak);
-    checkBoxs->append(this->waterLeakCheck);
+    QCheckBox *checkBox = new QCheckBox();
+    checkBox->setText("Emo");
+    checkBox->setProperty("id", ST::STError_Emo);
+    checkBoxs->append(checkBox);
 
-    this->smokeCheck = new QCheckBox();
-    this->smokeCheck->setText("AirLeak");
-    this->smokeCheck->setProperty("id", ST::STError_Smoke);
-    checkBoxs->append(this->smokeCheck);
+    checkBox = new QCheckBox();
+    checkBox->setText("InterLock1");
+    checkBox->setProperty("id", ST::STError_InterLock1);
+    checkBoxs->append(checkBox);
 
-    this->emoCheck = new QCheckBox();
-    this->emoCheck->setText("Emo");
-    this->emoCheck->setProperty("id", ST::STError_Emo);
-    checkBoxs->append(this->emoCheck);
+    checkBox = new QCheckBox();
+    checkBox->setText("InterLock2");
+    checkBox->setProperty("id", ST::STError_InterLock2);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("InterLock3");
+    checkBox->setProperty("id", ST::STError_InterLock3);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("InterLock4");
+    checkBox->setProperty("id", ST::STError_InterLock4);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("InterLock5");
+    checkBox->setProperty("id", ST::STError_InterLock5);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("InterLock6");
+    checkBox->setProperty("id", ST::STError_InterLock6);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak1");
+    checkBox->setProperty("id", ST::STError_WaterLeak1);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak2");
+    checkBox->setProperty("id", ST::STError_WaterLeak2);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak3");
+    checkBox->setProperty("id", ST::STError_WaterLeak3);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak4");
+    checkBox->setProperty("id", ST::STError_WaterLeak4);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak5");
+    checkBox->setProperty("id", ST::STError_WaterLeak5);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak6");
+    checkBox->setProperty("id", ST::STError_WaterLeak6);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak7");
+    checkBox->setProperty("id", ST::STError_WaterLeak7);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WaterLeak8");
+    checkBox->setProperty("id", ST::STError_WaterLeak8);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("Smoke1");
+    checkBox->setProperty("id", ST::STError_Smoke1);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("Smoke2");
+    checkBox->setProperty("id", ST::STError_Smoke2);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("Smoke3");
+    checkBox->setProperty("id", ST::STError_Smoke3);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("PWCRFan");
+    checkBox->setProperty("id", ST::STError_PWCRFan);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WSPR1Fan");
+    checkBox->setProperty("id", ST::STError_WSPR1Fan);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WSPR2Fan");
+    checkBox->setProperty("id", ST::STError_WSPR2Fan);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("ECABTemp");
+    checkBox->setProperty("id", ST::STError_ECABTemp);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("PMCRTemp");
+    checkBox->setProperty("id", ST::STError_PMCRTemp);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WSPR1Temp");
+    checkBox->setProperty("id", ST::STError_WSPR1Temp);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WSPR2Temp");
+    checkBox->setProperty("id", ST::STError_WSPR2Temp);
+    checkBoxs->append(checkBox);
+
+    checkBox = new QCheckBox();
+    checkBox->setText("WHCRTemp");
+    checkBox->setProperty("id", ST::STError_WHCRTemp);
+    checkBoxs->append(checkBox);
 
 
     QGridLayout *layout = new QGridLayout();
@@ -36,27 +151,27 @@ STSettingView::STSettingView(QWidget *parent) : QWidget(parent)
     int column = 0;
     for (int i = 0; i < checkBoxs->count(); i++)
     {
-        row = i / COLUMN;
-        column = i % COLUMN;
+        row = i % ROW;
+        column = i / ROW;
         QCheckBox *checkBox = checkBoxs->at(i);
         layout->addWidget(checkBox, row , column, Qt::AlignLeft);
     }
 
-    layout->setRowStretch(row + 1, 5);
-    layout->setColumnStretch(COLUMN + 1, 5);
+    layout->setRowStretch(ROW + 1, 5);
+    layout->setColumnStretch(column + 1, 5);
 
     this->setLayout(layout);
-
-    delete checkBoxs;
 
     this->bind();
 }
 
 void STSettingView::bind()
 {
-    connect(this->waterLeakCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
-    connect(this->smokeCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
-    connect(this->emoCheck, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
+    QVector<QCheckBox *>::iterator iter;
+    for (iter = this->checkBoxs->begin(); iter != this->checkBoxs->end(); iter++)
+    {
+        connect(*iter, SIGNAL(stateChanged(int)), this, SLOT(onCheckBoxStateChanged(int)));
+    }
 }
 
 void STSettingView::onCheckBoxStateChanged(int state)

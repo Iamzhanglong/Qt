@@ -25,6 +25,16 @@ private:
     void distributeCommand(ST::STCommand command, ST::STSignalTowerStatus statuse);
     void sendData(char *data, qint32 len);
     void sendFirstLevelErrorState();
+    ST::STState getInterLockErrorState();
+    ST::STState getWaterLeakErrorState();
+    ST::STState getSmokeErrorState();
+    ST::STState getFanErrorState();
+    ST::STState getTempErrorState();
+    void sendInterLockErrorState();
+    void sendWaterLeakErrorState();
+    void sendSmokeErrorState();
+    void sendFanErrorState();
+    void sendTempErrorState();
 public slots:
     void ClientConnect();
     void receiveData();

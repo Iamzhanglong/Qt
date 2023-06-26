@@ -13,9 +13,7 @@ class STSettingView : public QWidget
 public:
     explicit STSettingView(QWidget *parent = nullptr);
 private:
-    QCheckBox *waterLeakCheck;
-    QCheckBox *smokeCheck;
-    QCheckBox *emoCheck;
+    QVector<QCheckBox *> *checkBoxs;
 
     void bind();
 signals:

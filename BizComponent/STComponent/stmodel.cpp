@@ -72,14 +72,19 @@ void STModel::paseQueryCommand(QByteArray &buf)
         this->sendFirstLevelErrorState();
         break;
     case 0x04:
+        this->sendInterLockErrorState();
         break;
     case 0x07:
+        this->sendWaterLeakErrorState();
         break;
     case 0x0A:
+        this->sendSmokeErrorState();
         break;
     case 0x0D:
+        this->sendFanErrorState();
         break;
     case 0x10:
+        this->sendTempErrorState();
         break;
     default:
         break;
@@ -156,21 +161,267 @@ void STModel::sendFirstLevelErrorState()
         data[4] |= emoState == ST::STState_error ? 0x01 : 0x00;
     }
 
-    //water
-    if (this->errorStates->contains(ST::STError_WaterLeak))
-    {
-        ST::STState wateState = this->errorStates->value(ST::STError_WaterLeak);
-        data[4] |= wateState == ST::STState_error ? 0x04 : 0x00;
-    }
+    //interlock
+    data[4] |= this->getInterLockErrorState() == ST::STState_error ? 0x02 : 0x00;
+
+    //waterLeak
+      data[4] |= this->getWaterLeakErrorState() == ST::STState_error ? 0x04 : 0x00;
 
     //smoke
-    if (this->errorStates->contains(ST::STError_Smoke))
-    {
-        ST::STState smokeState = this->errorStates->value(ST::STError_Smoke);
-        data[4] |= smokeState == ST::STState_error ? 0x08 : 0x00;
-    }
+    data[4] |= this->getSmokeErrorState() == ST::STState_error ? 0x08 : 0x00;
+
+    //fan
+    data[4] |= this->getFanErrorState() == ST::STState_error ? 0x10 : 0x00;
+
+    //temp
+    data[4] |= this->getTempErrorState() == ST::STState_error ? 0x20 : 0x00;
 
     data[5] = 0x19;
     data[6] = 0x18;
     this->sendData(data, 7);
+}
+
+ST::STState STModel::getInterLockErrorState()
+{
+    for (int errorId = ST::STError_InterLock1; errorId <= ST::STError_InterLock6; errorId ++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                return ST::STState_error;
+            }
+        }
+    }
+    return ST::STState_normal;
+}
+
+ST::STState STModel::getWaterLeakErrorState()
+{
+    for (int errorId = ST::STError_WaterLeak1; errorId <= ST::STError_WaterLeak8; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                return ST::STState_error;
+            }
+        }
+    }
+    return ST::STState_normal;
+}
+
+ST::STState STModel::getSmokeErrorState()
+{
+    for (int errorId = ST::STError_Smoke1; errorId <= ST::STError_Smoke3; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                return ST::STState_error;
+            }
+        }
+    }
+    return ST::STState_normal;
+}
+
+ST::STState STModel::getFanErrorState()
+{
+    for (int errorId = ST::STError_PWCRFan; errorId <= ST::STError_WSPR2Fan; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                return ST::STState_error;
+            }
+        }
+    }
+    return ST::STState_normal;
+}
+
+ST::STState STModel::getTempErrorState()
+{
+    for (int errorId = ST::STError_ECABTemp; errorId <= ST::STError_WHCRTemp; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                return ST::STState_error;
+            }
+        }
+    }
+    return ST::STState_normal;
+}
+
+void STModel::sendInterLockErrorState()
+{
+    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    data[0] = 0x29;
+    data[1] = 0x03;
+    data[2] = 0x06;
+    data[3] = 0x00;
+    data[4] = 0x00;
+    data[5] = 0x00;
+    data[6] = 0x00;
+    data[7] = 0x00;
+
+    char bit = 0x01;
+    for (int errorId = ST::STError_InterLock1; errorId <= ST::STError_InterLock6; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                data[8] |= bit;
+            }
+        }
+        bit = bit << 1;
+    }
+
+    data[9] = 0xDF;
+    data[10] = 0x74;
+    this->sendData(data, 11);
+}
+
+void STModel::sendWaterLeakErrorState()
+{
+    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    data[0] = 0x29;
+    data[1] = 0x03;
+    data[2] = 0x06;
+    data[3] = 0x00;
+    data[4] = 0x00;
+    data[5] = 0x00;
+    data[6] = 0x00;
+    data[7] = 0x00;
+
+    char bit = 0x01;
+    for (int errorId = ST::STError_WaterLeak1; errorId <= ST::STError_WaterLeak8; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                data[8] |= bit;
+            }
+        }
+        bit = bit << 1;
+    }
+
+    data[9] = 0xDF;
+    data[10] = 0x74;
+    this->sendData(data, 11);
+}
+
+void STModel::sendSmokeErrorState()
+{
+    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    data[0] = 0x29;
+    data[1] = 0x03;
+    data[2] = 0x06;
+    data[3] = 0x00;
+    data[4] = 0x00;
+    data[5] = 0x00;
+    data[6] = 0x00;
+    data[7] = 0x00;
+
+    char bit = 0x01;
+    for (int errorId = ST::STError_Smoke1; errorId <= ST::STError_Smoke3; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                data[8] |= bit;
+            }
+        }
+        bit = bit << 1;
+    }
+
+    data[9] = 0xDF;
+    data[10] = 0x74;
+    this->sendData(data, 11);
+}
+
+void STModel::sendFanErrorState()
+{
+    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    data[0] = 0x29;
+    data[1] = 0x03;
+    data[2] = 0x06;
+    data[3] = 0x00;
+    data[4] = 0x00;
+    data[5] = 0x00;
+    data[6] = 0x00;
+    data[7] = 0x00;
+
+    char bit = 0x01;
+    for (int errorId = ST::STError_PWCRFan; errorId <= ST::STError_WSPR2Fan; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                data[8] |= bit;
+            }
+        }
+        bit = bit << 1;
+    }
+
+    data[9] = 0xDF;
+    data[10] = 0xDF;
+    this->sendData(data, 11);
+}
+
+void STModel::sendTempErrorState()
+{
+    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    data[0] = 0x29;
+    data[1] = 0x03;
+    data[2] = 0x06;
+    data[3] = 0x00;
+    data[4] = 0x00;
+    data[5] = 0x00;
+    data[6] = 0x00;
+    data[7] = 0x00;
+
+    char bit = 0x01;
+    for (int errorId = ST::STError_ECABTemp; errorId <= ST::STError_WHCRTemp; errorId++)
+    {
+        ST::STErrorId error = (ST::STErrorId)errorId;
+        if (this->errorStates->contains(error))
+        {
+            ST::STState state = this->errorStates->value(error);
+            if (state == ST::STState_error)
+            {
+                data[8] |= bit;
+            }
+        }
+        bit = bit << 1;
+    }
+
+    data[9] = 0xDF;
+    data[10] = 0x74;
+    this->sendData(data, 11);
 }

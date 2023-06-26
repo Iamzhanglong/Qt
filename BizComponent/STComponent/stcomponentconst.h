@@ -9,11 +9,31 @@ public:
     enum STErrorId
     {
         STError_Emo = 1,
-        STError_InterLock,
-        STError_WaterLeak,
-        STError_Smoke,
-        STError_Fan,
-        STError_Temp
+        STError_InterLock1,
+        STError_InterLock2,
+        STError_InterLock3,
+        STError_InterLock4,
+        STError_InterLock5,
+        STError_InterLock6,
+        STError_WaterLeak1,
+        STError_WaterLeak2,
+        STError_WaterLeak3,
+        STError_WaterLeak4,
+        STError_WaterLeak5,
+        STError_WaterLeak6,
+        STError_WaterLeak7,
+        STError_WaterLeak8,
+        STError_Smoke1,
+        STError_Smoke2,
+        STError_Smoke3,
+        STError_PWCRFan,
+        STError_WSPR1Fan,
+        STError_WSPR2Fan,
+        STError_ECABTemp,
+        STError_PMCRTemp,
+        STError_WSPR1Temp,
+        STError_WSPR2Temp,
+        STError_WHCRTemp
     };
 
     enum STState
