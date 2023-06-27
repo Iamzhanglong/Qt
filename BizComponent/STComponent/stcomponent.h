@@ -3,6 +3,7 @@
 
 #include "BaseComponent/BaseComponent/basecomponent.h"
 #include "Service/tabservice.h"
+#include "Service/logservice.h"
 #include "BizComponent/STComponent/Views/stview.h"
 #include "BizComponent/STComponent/stmodel.h"
 
@@ -15,6 +16,7 @@ private:
     void componentDidLoad();
 
     TabService *tabService;
+    LogService *logService;
     STView *view;
     STModel *stModel;
 

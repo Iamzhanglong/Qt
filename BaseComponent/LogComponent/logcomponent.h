@@ -2,17 +2,19 @@
 #define LOGCOMPONENT_H
 
 #include "BaseComponent/BaseComponent/basecomponent.h"
+#include "Service/logservice.h"
 #include "logview.h"
 
-class LogComponent : public BaseComponent
+class LogComponent : public BaseComponent, public LogService
 {
 public:
     LogComponent();
 
 private:
     void componentDidLoad();
+    void registerService(ServiceManager *serviceManager);
     QWidget *componentWidget();
-
+    void printfLog(QString &logStr);
     LogView *view;
 };
 

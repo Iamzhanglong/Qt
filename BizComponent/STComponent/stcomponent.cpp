@@ -9,6 +9,7 @@ STComponent::STComponent()
 void STComponent::injectService(ServiceManager *serviceManager)
 {
     this->tabService = (TabService *)serviceManager->getService(tabServiceId);
+    this->logService = (LogService *)serviceManager->getService(logServiceId);
 }
 
 void STComponent::componentDidLoad()
@@ -16,6 +17,11 @@ void STComponent::componentDidLoad()
     this->tabService->insertTab(stTabId, "ST", this->view);
 
     this->bind();
+    QString str = "6666";
+    this->logService->printfLog(str);
+    this->logService->printfLog(str);
+    this->logService->printfLog(str);
+    this->logService->printfLog(str);
 }
 
 void STComponent::bind()

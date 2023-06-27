@@ -41,7 +41,7 @@ STMenuView::STMenuView(QWidget *parent) : QWidget(parent)
     layout->addStretch();
 
     this->setLayout(layout);
-
+    this->setMinimumWidth(200);
     this->bind();
 }
 
