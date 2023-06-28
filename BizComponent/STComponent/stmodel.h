@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <QMap>
-#include "BizComponent/STComponent/stcomponentconst.h"
 #include <QTcpSocket>
 #include <QTcpServer>
+#include "BizComponent/STComponent/stcomponentconst.h"
 
 class STModel : public QObject
 {
@@ -35,6 +35,7 @@ private:
     void sendSmokeErrorState();
     void sendFanErrorState();
     void sendTempErrorState();
+
 public slots:
     void ClientConnect();
     void receiveData();
