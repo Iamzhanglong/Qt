@@ -8,6 +8,7 @@
 #include "BizComponent/STComponent/stcomponentconst.h"
 #include "Service/logservice.h"
 
+
 class STModel : public QObject
 {
     Q_OBJECT
@@ -39,6 +40,7 @@ private:
     void sendSmokeErrorState();
     void sendFanErrorState();
     void sendTempErrorState();
+
 public slots:
     void ClientConnect();
     void receiveData();
