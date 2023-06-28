@@ -1,42 +1,38 @@
 #include "stsignaltowerview.h"
 #include <QVBoxLayout>
 
-#define HEIGHT 100
-#define WIDTH  50
+#define LAMP_SIZE      50
 #define BLINK_TIMER_MS 1000
 
 STSignalTowerView::STSignalTowerView(QWidget *parent) : QWidget(parent)
 {
     this->redLamp = new QWidget();
-    this->redLamp->setMinimumHeight(HEIGHT);
-    this->redLamp->setMinimumWidth(WIDTH);
+    this->redLamp->setFixedSize(LAMP_SIZE, LAMP_SIZE);
     this->redLamp->setParent(this);
     this->setRedLampOn(false);
 
     this->yellowLamp = new QWidget();
-    this->yellowLamp->setMinimumHeight(HEIGHT);
-    this->yellowLamp->setMinimumWidth(WIDTH);
+    this->yellowLamp->setFixedSize(LAMP_SIZE, LAMP_SIZE);
     this->yellowLamp->setParent(this);
     this->setYellowLampOn(false);
 
     this->blueLamp = new QWidget();
-    this->blueLamp->setMinimumHeight(HEIGHT);
-    this->blueLamp->setMinimumWidth(WIDTH);
+    this->blueLamp->setFixedSize(LAMP_SIZE, LAMP_SIZE);
     this->blueLamp->setParent(this);
     this->setBlueLampOn(false);
 
     this->greenLamp = new QWidget();
-    this->greenLamp->setMinimumHeight(HEIGHT);
-    this->greenLamp->setMinimumWidth(WIDTH);
+    this->greenLamp->setFixedSize(LAMP_SIZE, LAMP_SIZE);
     this->greenLamp->setParent(this);
     this->setGreenLampOn(false);
 
     QVBoxLayout *layout = new QVBoxLayout();
-    layout->setSpacing(0);
+    layout->setSpacing(10);
     layout->addWidget(this->redLamp);
     layout->addWidget(this->yellowLamp);
     layout->addWidget(this->blueLamp);
     layout->addWidget(this->greenLamp);
+    layout->addStretch();
     this->setLayout(layout);
 }
 
@@ -68,11 +64,11 @@ void STSignalTowerView::setRedLampOn(bool on)
 {
     if (on)
     {
-        this->redLamp->setStyleSheet("background-color:rgba(255, 0, 0, 0.6);");
+        this->redLamp->setStyleSheet("background-color:rgba(255, 0, 0, 0.6);border-radius:25px;");
     }
     else
     {
-        this->redLamp->setStyleSheet("background-color:rgba(255, 0, 0, 0.0);");
+        this->redLamp->setStyleSheet("background-color:rgba(255, 0, 0, 0.0);border-radius:25px;");
     }
 }
 
@@ -80,11 +76,11 @@ void STSignalTowerView::setYellowLampOn(bool on)
 {
     if (on)
     {
-        this->yellowLamp->setStyleSheet("background-color:rgba(255, 255, 0, 0.6);");
+        this->yellowLamp->setStyleSheet("background-color:rgba(255, 255, 0, 0.6);border-radius:25px;");
     }
     else
     {
-        this->yellowLamp->setStyleSheet("background-color:rgba(255, 255, 0, 0.0);");
+        this->yellowLamp->setStyleSheet("background-color:rgba(255, 255, 0, 0.0);border-radius:25px;");
     }
 }
 
@@ -92,11 +88,11 @@ void STSignalTowerView::setBlueLampOn(bool on)
 {
     if (on)
     {
-        this->blueLamp->setStyleSheet("background-color:rgba(0, 0, 255, 0.6);");
+        this->blueLamp->setStyleSheet("background-color:rgba(0, 0, 255, 0.6);border-radius:25px;");
     }
     else
     {
-        this->blueLamp->setStyleSheet("background-color:rgba(0, 0, 255, 0.0);");
+        this->blueLamp->setStyleSheet("background-color:rgba(0, 0, 255, 0.0);border-radius:25px;");
     }
 }
 
@@ -104,11 +100,11 @@ void STSignalTowerView::setGreenLampOn(bool on)
 {
     if (on)
     {
-        this->greenLamp->setStyleSheet("background-color:rgba(0, 255, 0, 0.6);");
+        this->greenLamp->setStyleSheet("background-color:rgba(0, 255, 0, 0.6);border-radius:25px;");
     }
     else
     {
-        this->greenLamp->setStyleSheet("background-color:rgba(0, 255, 0, 0.0);");
+        this->greenLamp->setStyleSheet("background-color:rgba(0, 255, 0, 0.0);border-radius:25px;");
     }
 }
 

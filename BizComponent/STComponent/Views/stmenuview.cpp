@@ -6,7 +6,7 @@
 
 #define START_SERVER    "开始"
 #define STOP_SERVER     "停止"
-#define DEFAULT_PORT    "7"
+#define DEFAULT_PORT    "1314"
 
 STMenuView::STMenuView(QWidget *parent) : QWidget(parent)
 {

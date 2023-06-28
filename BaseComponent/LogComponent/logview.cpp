@@ -5,12 +5,15 @@
 #include <QStyleOption>
 #include <QVBoxLayout>
 #include <QScrollBar>
+#include <QFont>
+#include <QDateTime>
 
 LogView::LogView(QWidget *parent) : QWidget(parent)
 {
     this->setMinimumHeight(200);
     this->logText = new QTextEdit();
     this->logText->setReadOnly(true);
+    this->logText->setFont(QFont("Consloas", 11));
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(this->logText);
@@ -26,7 +29,9 @@ void LogView::addText(QString &str)
 //        this->logText->clear();
 //    }
 
-    QString logStr = str + "\n";
+    QDateTime currentTime = QDateTime::currentDateTime();
+    QString logStr = "[" + currentTime.toString("yy-MM-dd hh:mm:ss.zzz") + "]:" + str + "\n";
+
     this->logText->insertPlainText(logStr);
     //移动滚动条到底部
     QScrollBar *scrollbar = this->logText->verticalScrollBar();

@@ -15,13 +15,9 @@ void STComponent::injectService(ServiceManager *serviceManager)
 void STComponent::componentDidLoad()
 {
     this->tabService->insertTab(stTabId, "ST", this->view);
+    this->stModel->logService = this->logService;
 
     this->bind();
-    QString str = "6666";
-    this->logService->printfLog(str);
-    this->logService->printfLog(str);
-    this->logService->printfLog(str);
-    this->logService->printfLog(str);
 }
 
 void STComponent::bind()

@@ -15,6 +15,8 @@ private:
     void registerService(ServiceManager *serviceManager);
     QWidget *componentWidget();
     void printfLog(QString &logStr);
+    void printfLog(char *logStr);
+    void printfLog(std::string logStr);
     LogView *view;
 };
 

@@ -3,9 +3,10 @@
 
 #include <QObject>
 #include <QMap>
-#include "BizComponent/STComponent/stcomponentconst.h"
 #include <QTcpSocket>
 #include <QTcpServer>
+#include "BizComponent/STComponent/stcomponentconst.h"
+#include "Service/logservice.h"
 
 class STModel : public QObject
 {
@@ -13,6 +14,8 @@ class STModel : public QObject
 public:
     explicit STModel(QObject *parent = nullptr);
     void startServer();
+
+    LogService *logService;
 
 private:
     QMap<ST::STErrorId, ST::STState> *errorStates;
@@ -24,6 +27,7 @@ private:
     void parseCommand(QByteArray &buf);
     void distributeCommand(ST::STCommand command, ST::STSignalTowerStatus statuse);
     void sendData(char *data, qint32 len);
+    void sendData(unsigned char *data, qint32 len);
     void sendFirstLevelErrorState();
     ST::STState getInterLockErrorState();
     ST::STState getWaterLeakErrorState();

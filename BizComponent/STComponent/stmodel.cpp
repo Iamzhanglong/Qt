@@ -19,14 +19,14 @@ void STModel::startServer(quint16 port)
    //客户机连接信号槽
     connect(this->server, SIGNAL(newConnection()), this, SLOT(ClientConnect()));
     this->server->listen(QHostAddress::Any, port);
-    qDebug("start server\n");
+    this->logService->printfLog("Start server");
 }
 
 void STModel::stopServer()
 {
     this->server->close();
     this->server->deleteLater();
-    qDebug("stop server\n");
+    this->logService->printfLog("Stop server");
 }
 
 void STModel::ClientConnect()
@@ -38,6 +38,7 @@ void STModel::ClientConnect()
         this->socket = this->server->nextPendingConnection();
         //监听客户端是否有消息发送
         connect(this->socket, SIGNAL(readyRead()), this, SLOT(receiveData()));
+        this->logService->printfLog("Client already connect");
     }
 }
 
@@ -52,6 +53,11 @@ void STModel::receiveData()
 void STModel::sendData(char *data, qint32 len)
 {
     socket->write(data, len);
+}
+
+void STModel::sendData(unsigned char *data, qint32 len)
+{
+    socket->write((char *)data, len);
 }
 
 void STModel::distributeCommand(ST::STCommand command, ST::STSignalTowerStatus status)
@@ -179,6 +185,15 @@ void STModel::sendFirstLevelErrorState()
     data[5] = 0x19;
     data[6] = 0x18;
     this->sendData(data, 7);
+    QString str = QString("Send First Level Error:[%1 %2 %3 %4 %5 %6 %7]")
+            .arg(data[0], 2, 16, QLatin1Char('0'))
+            .arg(data[1], 2, 16, QLatin1Char('0'))
+            .arg(data[2], 2, 16, QLatin1Char('0'))
+            .arg(data[3], 2, 16, QLatin1Char('0'))
+            .arg(data[4], 2, 16, QLatin1Char('0'))
+            .arg(data[5], 2, 16, QLatin1Char('0'))
+            .arg(data[6], 2, 16, QLatin1Char('0'));
+    this->logService->printfLog(str);
 }
 
 ST::STState STModel::getInterLockErrorState()
@@ -268,7 +283,7 @@ ST::STState STModel::getTempErrorState()
 
 void STModel::sendInterLockErrorState()
 {
-    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    unsigned char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     data[0] = 0x29;
     data[1] = 0x03;
     data[2] = 0x06;
@@ -278,7 +293,7 @@ void STModel::sendInterLockErrorState()
     data[6] = 0x00;
     data[7] = 0x00;
 
-    char bit = 0x01;
+    unsigned char bit = 0x01;
     for (int errorId = ST::STError_InterLock1; errorId <= ST::STError_InterLock6; errorId++)
     {
         ST::STErrorId error = (ST::STErrorId)errorId;
@@ -296,11 +311,24 @@ void STModel::sendInterLockErrorState()
     data[9] = 0xDF;
     data[10] = 0x74;
     this->sendData(data, 11);
+    QString str = QString("Send Interlock Error:[%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11]")
+            .arg(data[0], 2, 16, QLatin1Char('0'))
+            .arg(data[1], 2, 16, QLatin1Char('0'))
+            .arg(data[2], 2, 16, QLatin1Char('0'))
+            .arg(data[3], 2, 16, QLatin1Char('0'))
+            .arg(data[4], 2, 16, QLatin1Char('0'))
+            .arg(data[5], 2, 16, QLatin1Char('0'))
+            .arg(data[6], 2, 16, QLatin1Char('0'))
+            .arg(data[7], 2, 16, QLatin1Char('0'))
+            .arg(data[8], 2, 16, QLatin1Char('0'))
+            .arg(data[9], 2, 16, QLatin1Char('0'))
+            .arg(data[10], 2, 16, QLatin1Char('0'));
+    this->logService->printfLog(str);
 }
 
 void STModel::sendWaterLeakErrorState()
 {
-    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    unsigned char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     data[0] = 0x29;
     data[1] = 0x03;
     data[2] = 0x06;
@@ -310,7 +338,7 @@ void STModel::sendWaterLeakErrorState()
     data[6] = 0x00;
     data[7] = 0x00;
 
-    char bit = 0x01;
+    unsigned char bit = 0x01;
     for (int errorId = ST::STError_WaterLeak1; errorId <= ST::STError_WaterLeak8; errorId++)
     {
         ST::STErrorId error = (ST::STErrorId)errorId;
@@ -328,11 +356,24 @@ void STModel::sendWaterLeakErrorState()
     data[9] = 0xDF;
     data[10] = 0x74;
     this->sendData(data, 11);
+    QString str = QString("Send Water Leak Error:[%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11]")
+            .arg(data[0], 2, 16, QLatin1Char('0'))
+            .arg(data[1], 2, 16, QLatin1Char('0'))
+            .arg(data[2], 2, 16, QLatin1Char('0'))
+            .arg(data[3], 2, 16, QLatin1Char('0'))
+            .arg(data[4], 2, 16, QLatin1Char('0'))
+            .arg(data[5], 2, 16, QLatin1Char('0'))
+            .arg(data[6], 2, 16, QLatin1Char('0'))
+            .arg(data[7], 2, 16, QLatin1Char('0'))
+            .arg(data[8], 2, 16, QLatin1Char('0'))
+            .arg(data[9], 2, 16, QLatin1Char('0'))
+            .arg(data[10], 2, 16, QLatin1Char('0'));
+    this->logService->printfLog(str);
 }
 
 void STModel::sendSmokeErrorState()
 {
-    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    unsigned char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     data[0] = 0x29;
     data[1] = 0x03;
     data[2] = 0x06;
@@ -342,7 +383,7 @@ void STModel::sendSmokeErrorState()
     data[6] = 0x00;
     data[7] = 0x00;
 
-    char bit = 0x01;
+    unsigned char bit = 0x01;
     for (int errorId = ST::STError_Smoke1; errorId <= ST::STError_Smoke3; errorId++)
     {
         ST::STErrorId error = (ST::STErrorId)errorId;
@@ -360,11 +401,24 @@ void STModel::sendSmokeErrorState()
     data[9] = 0xDF;
     data[10] = 0x74;
     this->sendData(data, 11);
+    QString str = QString("Send Smoke Error:[%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11]")
+            .arg(data[0], 2, 16, QLatin1Char('0'))
+            .arg(data[1], 2, 16, QLatin1Char('0'))
+            .arg(data[2], 2, 16, QLatin1Char('0'))
+            .arg(data[3], 2, 16, QLatin1Char('0'))
+            .arg(data[4], 2, 16, QLatin1Char('0'))
+            .arg(data[5], 2, 16, QLatin1Char('0'))
+            .arg(data[6], 2, 16, QLatin1Char('0'))
+            .arg(data[7], 2, 16, QLatin1Char('0'))
+            .arg(data[8], 2, 16, QLatin1Char('0'))
+            .arg(data[9], 2, 16, QLatin1Char('0'))
+            .arg(data[10], 2, 16, QLatin1Char('0'));
+    this->logService->printfLog(str);
 }
 
 void STModel::sendFanErrorState()
 {
-    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    unsigned char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     data[0] = 0x29;
     data[1] = 0x03;
     data[2] = 0x06;
@@ -374,7 +428,7 @@ void STModel::sendFanErrorState()
     data[6] = 0x00;
     data[7] = 0x00;
 
-    char bit = 0x01;
+    unsigned char bit = 0x01;
     for (int errorId = ST::STError_PWCRFan; errorId <= ST::STError_WSPR2Fan; errorId++)
     {
         ST::STErrorId error = (ST::STErrorId)errorId;
@@ -392,11 +446,24 @@ void STModel::sendFanErrorState()
     data[9] = 0xDF;
     data[10] = 0xDF;
     this->sendData(data, 11);
+    QString str = QString("Send Fan Error:[%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11]")
+            .arg(data[0], 2, 16, QLatin1Char('0'))
+            .arg(data[1], 2, 16, QLatin1Char('0'))
+            .arg(data[2], 2, 16, QLatin1Char('0'))
+            .arg(data[3], 2, 16, QLatin1Char('0'))
+            .arg(data[4], 2, 16, QLatin1Char('0'))
+            .arg(data[5], 2, 16, QLatin1Char('0'))
+            .arg(data[6], 2, 16, QLatin1Char('0'))
+            .arg(data[7], 2, 16, QLatin1Char('0'))
+            .arg(data[8], 2, 16, QLatin1Char('0'))
+            .arg(data[9], 2, 16, QLatin1Char('0'))
+            .arg(data[10], 2, 16, QLatin1Char('0'));
+    this->logService->printfLog(str);
 }
 
 void STModel::sendTempErrorState()
 {
-    char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    unsigned char data[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     data[0] = 0x29;
     data[1] = 0x03;
     data[2] = 0x06;
@@ -406,7 +473,7 @@ void STModel::sendTempErrorState()
     data[6] = 0x00;
     data[7] = 0x00;
 
-    char bit = 0x01;
+    unsigned char bit = 0x01;
     for (int errorId = ST::STError_ECABTemp; errorId <= ST::STError_WHCRTemp; errorId++)
     {
         ST::STErrorId error = (ST::STErrorId)errorId;
@@ -424,4 +491,18 @@ void STModel::sendTempErrorState()
     data[9] = 0xDF;
     data[10] = 0x74;
     this->sendData(data, 11);
+
+    QString str = QString("Send Temp Error:[%1 %2 %3 %4 %5 %6 %7 %8 %9 %10 %11]")
+            .arg(data[0], 2, 16, QLatin1Char('0'))
+            .arg(data[1], 2, 16, QLatin1Char('0'))
+            .arg(data[2], 2, 16, QLatin1Char('0'))
+            .arg(data[3], 2, 16, QLatin1Char('0'))
+            .arg(data[4], 2, 16, QLatin1Char('0'))
+            .arg(data[5], 2, 16, QLatin1Char('0'))
+            .arg(data[6], 2, 16, QLatin1Char('0'))
+            .arg(data[7], 2, 16, QLatin1Char('0'))
+            .arg(data[8], 2, 16, QLatin1Char('0'))
+            .arg(data[9], 2, 16, QLatin1Char('0'))
+            .arg(data[10], 2, 16, QLatin1Char('0'));
+    this->logService->printfLog(str);
 }
