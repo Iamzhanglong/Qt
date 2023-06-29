@@ -5,7 +5,6 @@ TabComponent::TabComponent()
 {
     this->tabMap = new QMap<QString, QWidget *>();
     this->view = new TabView();
-    this->view->setStyleSheet("background-color:blue;");
 }
 
 void TabComponent::registerService(ServiceManager *serviceManager)

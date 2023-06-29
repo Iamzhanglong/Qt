@@ -39,6 +39,7 @@ signals:
 
 public slots:
     void handleCommand(ST::STCommand command, ST::STSignalTowerStatus status);
+    void clearStatus();
 };
 
 #endif // STSIGNALTOWERVIEW_H

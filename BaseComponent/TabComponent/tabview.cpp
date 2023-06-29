@@ -5,11 +5,16 @@
 #include <QHBoxLayout>
 #include <QObject>
 
+#define BUTTON_WIDTH 60
+#define BUTTON_HIGHT 20
+
+#define TAB_HIGHT 30
+
 TabView::TabView(QWidget *parent) : QWidget(parent)
 {
     QHBoxLayout *hLayout = new QHBoxLayout();
-//    hLayout->setMargin(2);
     hLayout->setContentsMargins(10,2,10,2);
+    this->setMinimumHeight(TAB_HIGHT);
     this->setLayout(hLayout);
 }
 
@@ -26,6 +31,9 @@ void TabView::paintEvent(QPaintEvent *event)
 void TabView::addTab(QString tabId, QString btnTitle)
 {
     QPushButton *button = new QPushButton();
+    button->setFixedWidth(BUTTON_WIDTH);
+    button->setFixedHeight(BUTTON_HIGHT);
+    //button->setStyleSheet("background-color:#ced4da;border:1px solid gray;border-radius:5px;");
     button->setText(btnTitle);
 
     QObject::connect(button, &QPushButton::clicked, [=]() {

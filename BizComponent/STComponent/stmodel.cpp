@@ -132,6 +132,17 @@ void STModel::paseSetCommand(QByteArray &buf)
     ST::STSignalTowerStatus musicStatus = ST::STStatus_off;
     musicStatus = buf.at(4) & 0x02 ? ST::STStatus_on : musicStatus;
     this->distributeCommand(ST::STCommand_setMusic, musicStatus);
+
+    QString str = QString("Receive Set Signal Tower Command:[%1 %2 %3 %4 %5 %6 %7 %8]")
+            .arg(buf[0], 2, 16, QLatin1Char('0'))
+            .arg(buf[1], 2, 16, QLatin1Char('0'))
+            .arg(buf[2], 2, 16, QLatin1Char('0'))
+            .arg(buf[3], 2, 16, QLatin1Char('0'))
+            .arg(buf[4], 2, 16, QLatin1Char('0'))
+            .arg(buf[5], 2, 16, QLatin1Char('0'))
+            .arg(buf[6], 2, 16, QLatin1Char('0'))
+            .arg(buf[7], 2, 16, QLatin1Char('0'));
+    this->logService->printfLog(str);
 }
 
 void STModel::parseCommand(QByteArray &buf)

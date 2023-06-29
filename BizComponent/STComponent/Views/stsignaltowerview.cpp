@@ -2,7 +2,7 @@
 #include <QVBoxLayout>
 
 #define LAMP_SIZE      50
-#define BLINK_TIMER_MS 1000
+#define BLINK_TIMER_MS 300
 
 STSignalTowerView::STSignalTowerView(QWidget *parent) : QWidget(parent)
 {
@@ -59,16 +59,24 @@ void STSignalTowerView::handleCommand(ST::STCommand command, ST::STSignalTowerSt
     }
 }
 
+void STSignalTowerView::clearStatus()
+{
+    this->setRedLampStatus(ST::STStatus_off);
+    this->setYellowLampStatus(ST::STStatus_off);
+    this->setBlueLampStatus(ST::STStatus_off);
+    this->setGreenLampStatus(ST::STStatus_off);
+}
+
 /*=========================Private=========================*/
 void STSignalTowerView::setRedLampOn(bool on)
 {
     if (on)
     {
-        this->redLamp->setStyleSheet("background-color:rgba(255, 0, 0, 0.6);border-radius:25px;");
+        this->redLamp->setStyleSheet("background-color:#e03131;border:1px solid #dee2e6;border-radius:25px;");
     }
     else
     {
-        this->redLamp->setStyleSheet("background-color:rgba(255, 0, 0, 0.0);border-radius:25px;");
+        this->redLamp->setStyleSheet("background-color:#ffe3e3;border:1px solid #dee2e6;border-radius:25px;");
     }
 }
 
@@ -76,11 +84,11 @@ void STSignalTowerView::setYellowLampOn(bool on)
 {
     if (on)
     {
-        this->yellowLamp->setStyleSheet("background-color:rgba(255, 255, 0, 0.6);border-radius:25px;");
+        this->yellowLamp->setStyleSheet("background-color:#f08c00;border:1px solid #dee2e6;border-radius:25px;");
     }
     else
     {
-        this->yellowLamp->setStyleSheet("background-color:rgba(255, 255, 0, 0.0);border-radius:25px;");
+        this->yellowLamp->setStyleSheet("background-color:#fff3bf;border:1px solid #dee2e6;border-radius:25px;");
     }
 }
 
@@ -88,11 +96,11 @@ void STSignalTowerView::setBlueLampOn(bool on)
 {
     if (on)
     {
-        this->blueLamp->setStyleSheet("background-color:rgba(0, 0, 255, 0.6);border-radius:25px;");
+        this->blueLamp->setStyleSheet("background-color:#1971c2;border:1px solid #dee2e6;border-radius:25px;");
     }
     else
     {
-        this->blueLamp->setStyleSheet("background-color:rgba(0, 0, 255, 0.0);border-radius:25px;");
+        this->blueLamp->setStyleSheet("background-color:#dbe4ff;border:1px solid #dee2e6;border-radius:25px;");
     }
 }
 
@@ -100,11 +108,11 @@ void STSignalTowerView::setGreenLampOn(bool on)
 {
     if (on)
     {
-        this->greenLamp->setStyleSheet("background-color:rgba(0, 255, 0, 0.6);border-radius:25px;");
+        this->greenLamp->setStyleSheet("background-color:#2f9e44;border:1px solid #dee2e6;border-radius:25px;");
     }
     else
     {
-        this->greenLamp->setStyleSheet("background-color:rgba(0, 255, 0, 0.0);border-radius:25px;");
+        this->greenLamp->setStyleSheet("background-color:#d3f9d8;border:1px solid #dee2e6;border-radius:25px;");
     }
 }
 

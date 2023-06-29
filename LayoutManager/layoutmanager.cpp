@@ -19,6 +19,8 @@ void LayoutManager::layoutBaseComponents(QMap<QString, BaseComponent *> *compone
         if (widget)
         {
             widget->setParent(this->mainWindow);
+            widget->setObjectName("tabComponent");
+            widget->setStyleSheet("QWidget#tabComponent{border:1px solid #dee2e6;border-radius:5px;}");
             layout->addWidget(widget, 1);
         }
     }
@@ -30,6 +32,8 @@ void LayoutManager::layoutBaseComponents(QMap<QString, BaseComponent *> *compone
         if (widget)
         {
             widget->setParent(this->mainWindow);
+            widget->setObjectName("operationComponent");
+            widget->setStyleSheet("QWidget#operationComponent{border:1px solid #dee2e6;border-radius:5px;}");
             layout->addWidget(widget, 15);
         }
     }
@@ -41,6 +45,8 @@ void LayoutManager::layoutBaseComponents(QMap<QString, BaseComponent *> *compone
         if (widget)
         {
             widget->setParent(this->mainWindow);
+            widget->setObjectName("logComponent");
+            widget->setStyleSheet("QWidget#logComponent{border:1px solid #dee2e6;border-radius:5px;}");
             layout->addWidget(widget, 5);
         }
     }
