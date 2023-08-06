@@ -33,7 +33,7 @@ void TabView::addTab(QString tabId, QString btnTitle)
     QPushButton *button = new QPushButton();
     button->setFixedWidth(BUTTON_WIDTH);
     button->setFixedHeight(BUTTON_HIGHT);
-    //button->setStyleSheet("background-color:#ced4da;border:1px solid gray;border-radius:5px;");
+    button->setStyleSheet("background-color:#ced4da;border:1px solid gray;border-radius:5px;");
     button->setText(btnTitle);
 
     QObject::connect(button, &QPushButton::clicked, [=]() {
