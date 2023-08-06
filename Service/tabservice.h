@@ -8,6 +8,7 @@
 #define tabServiceId "tabServiceId"
 
 #define stTabId "stTabId"
+#define mcTabId "mcTabId"
 
 class TabService : public BaseService
 {

@@ -16,7 +16,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private:
+    void mouseDoubleClickEvent(QMouseEvent *event);
     ComponentLoader *loader;
+
 
 private:
     Ui::MainWindow *ui;

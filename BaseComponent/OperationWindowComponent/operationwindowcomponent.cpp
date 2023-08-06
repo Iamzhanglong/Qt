@@ -4,6 +4,7 @@
 OperationWindowComponent::OperationWindowComponent()
 {
     this->view = new OperationView();
+    this->currentView = nullptr;
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
@@ -34,9 +35,17 @@ QWidget *OperationWindowComponent::componentWidget()
 
 void OperationWindowComponent::setCurrentView(QWidget *widget)
 {
+    if (widget == this->currentView)
+    {
+        return;
+    }
     QVBoxLayout *layout = (QVBoxLayout *)this->view->layout();
-    layout->removeWidget(this->currentView);
     layout->addWidget(widget);
+    if (this->currentView)
+    {
+        layout->removeWidget(this->currentView);
+        this->currentView->setParent(nullptr);
+    }
     this->currentView = widget;
 }
 

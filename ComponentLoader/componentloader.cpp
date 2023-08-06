@@ -4,6 +4,7 @@
 #include "BaseComponent/OperationWindowComponent/operationwindowcomponent.h"
 #include "BaseComponent/LogComponent/logcomponent.h"
 #include "BizComponent/STComponent/stcomponent.h"
+#include "BizComponent/MCComponent/mccomponent.h"
 
 ComponentLoader::ComponentLoader(QObject *parent) : QObject(parent)
 {
@@ -33,6 +34,9 @@ void ComponentLoader::createBizComponents()
 
     STComponent *st = new STComponent();
     bizComponents->append(st);
+
+    MCComponent *mc = new MCComponent();
+    bizComponents->append(mc);
 }
 
 void ComponentLoader::loadComponents()

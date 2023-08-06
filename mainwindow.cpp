@@ -23,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent)
     this->loader->loadComponents();
 }
 
+void MainWindow::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    // 空函数体，不做任何操作
+}
+
 MainWindow::~MainWindow()
 {
     delete ui;
