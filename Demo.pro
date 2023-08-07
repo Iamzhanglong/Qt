@@ -26,6 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    BizComponent/MCComponent/Models/mcmodel.cpp \
     BizComponent/MCComponent/Models/sttracemodel.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -50,12 +51,12 @@ SOURCES += \
     BizComponent/STComponent/stmodel.cpp \
     BizComponent/MCComponent/mccomponent.cpp \
     BizComponent/MCComponent/Views/mcview.cpp \
-    BizComponent/MCComponent/mcmodel.cpp \
     BizComponent/MCComponent/Views/mccontrolview.cpp \
     BizComponent/MCComponent/Views/mctabview.cpp \
     BizComponent/MCComponent/Views/mctraceview.cpp
 
 HEADERS += \
+    BizComponent/MCComponent/Models/mcmodel.h \
     BizComponent/MCComponent/Models/sttracemodel.h \
         mainwindow.h \
     BaseComponent/TabComponent/tabcomponent.h \
@@ -83,7 +84,6 @@ HEADERS += \
     Service/logservice.h \
     BizComponent/MCComponent/mccomponent.h \
     BizComponent/MCComponent/Views/mcview.h \
-    BizComponent/MCComponent/mcmodel.h \
     BizComponent/MCComponent/Views/mccontrolview.h \
     BizComponent/MCComponent/Views/mctabview.h \
     BizComponent/MCComponent/Views/mctraceview.h

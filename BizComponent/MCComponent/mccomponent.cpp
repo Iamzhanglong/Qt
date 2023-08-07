@@ -3,6 +3,7 @@
 MCComponent::MCComponent()
 {
     this->view = new MCView();
+    this->mcModel = new MCModel();
     this->traceModel = new STTraceModel();
 }
 
@@ -31,4 +32,13 @@ void MCComponent::bind()
             &STTraceModel::traceDataUpdata,
             this->view->traceView,
             &MCTraceView::updateCoordinate);
+    connect(this->view->controlView,
+            &MCControlView::switchConnectState,
+            this->mcModel,
+            &MCModel::modifyConnectState);
+    connect(this->mcModel,
+            &MCModel::connectStateChanged,
+            this->view->controlView,
+            &MCControlView::onConnectStateChanged);
+
 }

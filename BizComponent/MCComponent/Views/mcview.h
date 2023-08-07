@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "BizComponent/MCComponent/Views/mctraceview.h"
+#include "BizComponent/MCComponent/Views/mccontrolview.h"
 
 class MCView : public QWidget
 {
@@ -11,6 +12,7 @@ public:
     explicit MCView(QWidget *parent = nullptr);
 
     MCTraceView *traceView;
+    MCControlView *controlView;
 private:
 
 signals:

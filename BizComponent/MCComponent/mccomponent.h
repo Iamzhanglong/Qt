@@ -6,6 +6,7 @@
 #include "Service/tabservice.h"
 #include "Service/logservice.h"
 #include "BizComponent/MCComponent/Models/sttracemodel.h"
+#include "BizComponent/MCComponent/Models/mcmodel.h"
 
 class MCComponent : public BaseComponent
 {
@@ -15,6 +16,7 @@ public:
     virtual ~MCComponent();
 
 private:
+    MCModel *mcModel;
     STTraceModel *traceModel;
 
     TabService *tabService;

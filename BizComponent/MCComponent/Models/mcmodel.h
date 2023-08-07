@@ -10,8 +10,9 @@ public:
     explicit MCModel(QObject *parent = nullptr);
 
 signals:
-
+    void connectStateChanged(bool state);
 public slots:
+    void modifyConnectState(QString ip, int port);
 };
 
 #endif // MCMODEL_H
